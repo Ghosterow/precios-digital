@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma Interactiva: Cuentas y Películas</title>
+    <title>Plataforma Interactiva: Cuentas, Películas y Libros</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Visualization & Content Choices:
+    * Section: Cuentas - Important Notices, Service Categories (Filters), Service Details (Cards with Copy/WhatsApp).
+    * Section: Películas - Movie Titles (Cards with Copy/WhatsApp).
+    * Section: Libros - Book Titles (Cards with Copy/WhatsApp).
+    * General: Main tabs for navigation.
+    * Icons: Unicode Emojis for all items.
+    * CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Raster images avoided for icons, using Unicode characters instead as per primary graphical constraints. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -22,56 +29,56 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
         }
-        .nav-button, .filter-button, .action-button { /* Combined .copy-button and new .whatsapp-button */
+        .nav-button, .filter-button, .action-button { 
             transition: background-color 0.3s, color 0.3s, opacity 0.3s;
-            font-weight: 500; /* medium */
-            border-radius: 0.375rem; /* rounded-md */
-            padding: 0.375rem 0.75rem; /* py-1.5 px-3 */
-            font-size: 0.75rem; /* text-xs */
+            font-weight: 500; 
+            border-radius: 0.375rem; 
+            padding: 0.375rem 0.75rem; 
+            font-size: 0.75rem; 
         }
         .nav-button.active, .filter-button.active {
-            background-color: #0284c7; /* sky-600 */
+            background-color: #0284c7; 
             color: white;
         }
         .nav-button:not(.active):hover, .filter-button:not(.active):hover {
-            background-color: #e5e7eb; /* gray-200 */
+            background-color: #e5e7eb; 
         }
         .copy-button {
-            background-color: #f0f9ff; /* sky-50 */
-            color: #0c4a6e; /* sky-800 */
-            border: 1px solid #bae6fd; /* sky-200 */
+            background-color: #f0f9ff; 
+            color: #0c4a6e; 
+            border: 1px solid #bae6fd; 
         }
         .copy-button:hover {
-            background-color: #e0f2fe; /* sky-100 */
+            background-color: #e0f2fe; 
         }
         .whatsapp-button {
-            background-color: #25D366; /* WhatsApp Green */
+            background-color: #25D366; 
             color: white;
-            border: 1px solid #128C7E; /* Darker WhatsApp Green */
+            border: 1px solid #128C7E; 
         }
         .whatsapp-button:hover {
             background-color: #1DAE52; 
         }
         .notice-banner {
-            background-color: #fef3c7; /* amber-100 */
-            border-left: 4px solid #f59e0b; /* amber-500 */
-            color: #78350f; /* amber-900 */
+            background-color: #fef3c7; 
+            border-left: 4px solid #f59e0b; 
+            color: #78350f; 
         }
         .guarantee-notice {
-             background-color: #dbeafe; /* blue-100 */
-             border-left: 4px solid #2563eb; /* blue-600 */
-             color: #1e3a8a; /* blue-900 */
+             background-color: #dbeafe; 
+             border-left: 4px solid #2563eb; 
+             color: #1e3a8a; 
         }
         .price-tag {
-            background-color: #0284c7; /* sky-600 */
+            background-color: #0284c7; 
             color: white;
             font-weight: 600;
         }
         .search-input::placeholder {
-            color: #a1a1aa; /* stone-400 */
+            color: #a1a1aa; 
         }
         .header-title {
-            color: #0284c7; /* sky-700 */
+            color: #0284c7; 
         }
         .hidden-view {
             display: none;
@@ -81,10 +88,10 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #10b981; /* emerald-500 */
+            background-color: #10b981; 
             color: white;
             padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem; /* rounded-lg */
+            border-radius: 0.5rem; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             z-index: 100;
             opacity: 0;
@@ -98,25 +105,26 @@
 <body class="text-stone-800">
     <div class="container mx-auto p-4 md:p-8 max-w-7xl">
         <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold header-title mb-6">Plataforma de Cuentas y Películas</h1>
+            <h1 class="text-4xl font-bold header-title mb-6">Plataforma de Cuentas, Películas y Libros</h1>
         </header>
 
-        <nav class="mb-8 flex justify-center space-x-2 sm:space-x-4 border-b border-stone-300 pb-4">
-            <button id="nav-cuentas" class="nav-button active px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-semibold text-md sm:text-lg" data-view="cuentas">Cuentas</button>
-            <button id="nav-peliculas" class="nav-button px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-semibold text-md sm:text-lg" data-view="peliculas">Películas</button>
+        <nav class="mb-8 flex flex-wrap justify-center space-x-1 sm:space-x-2 border-b border-stone-300 pb-4">
+            <button id="nav-cuentas" class="nav-button active px-3 py-1.5 sm:px-6 sm:py-3 rounded-lg font-semibold text-sm sm:text-lg" data-view="cuentas">Cuentas</button>
+            <button id="nav-peliculas" class="nav-button px-3 py-1.5 sm:px-6 sm:py-3 rounded-lg font-semibold text-sm sm:text-lg" data-view="peliculas">Películas</button>
+            <button id="nav-libros" class="nav-button px-3 py-1.5 sm:px-6 sm:py-3 rounded-lg font-semibold text-sm sm:text-lg" data-view="libros">Libros</button>
         </nav>
 
         <section id="view-cuentas" class="">
             <div class="notice-banner p-4 rounded-lg mb-4 text-sm text-center">
                 <p class="font-semibold">‼️ AVISOS IMPORTANTES (CUENTAS) ‼️</p>
                 <ul class="list-disc list-inside inline-block text-left ml-4 mt-2 space-y-1">
-                    <li>**CUENTAS PARA 1 DISPOSITIVO** (a menos que se especifique lo contrario).</li>
-                    <li>**PREGUNTEN POR DISPONIBILIDAD ANTES DE PAGAR.**</li>
-                    <li>**NO SE HACEN REEMBOLSOS.**</li>
+                    <li>CUENTAS PARA 1 DISPOSITIVO (a menos que se especifique lo contrario).</li>
+                    <li>PREGUNTEN POR DISPONIBILIDAD ANTES DE PAGAR.</li>
+                    <li>NO SE HACEN REEMBOLSOS.</li>
                 </ul>
             </div>
             <div class="guarantee-notice p-4 rounded-lg text-sm text-center mb-8">
-                <p>🔉 **GARANTÍA DE 25 DÍAS** (pero la cuenta puede durar los 30 días).</p>
+                <p>🔉 GARANTÍA DE 25 A 30 DÍAS.</p>
             </div>
 
             <div class="mb-6">
@@ -148,6 +156,15 @@
             </main>
         </section>
 
+        <section id="view-libros" class="hidden-view">
+            <div class="mb-6 mt-8">
+                <label for="search-input-libros" class="block text-lg font-semibold mb-2 text-center text-stone-700">Buscar Libro:</label>
+                <input type="text" id="search-input-libros" placeholder="Escribe el título del libro..." class="search-input w-full max-w-xl mx-auto p-3 border border-stone-300 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow">
+            </div>
+            <main id="book-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            </main>
+        </section>
+
         <footer class="mt-12 text-center text-sm text-stone-500">
             <p>&copy; <span id="currentYear"></span> Plataforma de Ian. Todos los derechos reservados.</p>
         </footer>
@@ -156,101 +173,124 @@
     </div>
 
     <script>
-        const WHATSAPP_NUMBER = "524402053331"; // Tu número de WhatsApp aquí
+        const WHATSAPP_NUMBER = "5219331254359"; // Número de WhatsApp actualizado
 
         const servicesData = [
-            { id: 1, category: "individuales", emoji: "💙", name: "Netflix (Individual)", price: 120, details: "" },
-            { id: 2, category: "individuales", emoji: "❤️", name: "Disney + Star (Premium)", price: 60, details: "" },
-            { id: 3, category: "individuales", emoji: "💛", name: "HBO MAX", price: 60, details: "" },
-            { id: 4, category: "individuales", emoji: "🤎", name: "Prime video C/A", price: 40, details: "" },
-            { id: 5, category: "individuales", emoji: "🤎", name: "Prime video S/A", price: 60, details: "" },
-            { id: 6, category: "individuales", emoji: "🤎", name: "Prime video Combo", price: 145, details: "Incluye: VIX, MAX, PARAMOUNT, CALIENTE TV, FOX Y UNIVERSAL" },
-            { id: 7, category: "individuales", emoji: "🖤", name: "Crunchyroll (Individual)", price: 50, details: "" },
-            { id: 8, category: "individuales", emoji: "💙", name: "Viki Rakuten", price: 35, details: "" },
-            { id: 9, category: "individuales", emoji: "🧡", name: "Paramount+", price: 45, details: "" },
-            { id: 10, category: "individuales", emoji: "💚", name: "Pornhub", price: 60, details: "" },
-            { id: 11, category: "individuales", emoji: "🩷", name: "Universal+", price: 65, details: "" },
-            { id: 12, category: "individuales", emoji: "🩶", name: "Vix", price: 40, details: "" },
-            { id: 13, category: "individuales", emoji: "❤️", name: "Plex", price: 60, details: "" },
-            { id: 14, category: "individuales", emoji: "🩷", name: "Mubi", price: 30, details: "" },
-            { id: 15, category: "individuales", emoji: "♥️", name: "DramaBox APK (ANDROID)", price: 60, details: "" },
-            { id: 16, category: "individuales", emoji: "💚", name: "Flujo TV", price: 90, details: "" },
-            { id: 17, category: "individuales", emoji: "🤍", name: "DIRECTV GO", price: 95, details: "" },
-            { id: 18, category: "individuales", emoji: "🤎", name: "Duolingo", price: 95, details: "" },
-            { id: 19, category: "individuales", emoji: "💜", name: "IPTV SMARTERS (1mes)", price: 50, details: "" },
-            { id: 20, category: "individuales", emoji: "🎨", name: "PicsArt", price: 95, details: "" },
-            { id: 21, category: "individuales", emoji: "📁", name: "MICROSOFT OFFICE 365 1 AÑO", price: 400, details: "" },
-            { id: 22, category: "individuales", emoji: "🖥️", name: "APPLE TV 3 meses", price: 180, details: "" },
-            { id: 23, category: "musica", emoji: "🔷", name: "TIDAL (1 mes)", price: 80, details: "" },
-            { id: 24, category: "musica", emoji: "🔷", name: "APPLE MUSIC (2 meses)", price: 155, details: "" },
-            { id: 25, category: "musica", emoji: "💠", name: "SPOTIFY (1 mes)", price: 80, details: "" },
-            { id: 26, category: "musica", emoji: "🔷️", name: "DEEZER (Individual 1 mes)", price: 80, details: "" },
-            { id: 27, category: "musica", emoji: "🔴", name: "YOUTUBE (Ind. 1 mes x invitación)", price: 95, details: "Que no haya tenido membresía antes" },
-            { id: 28, category: "musica", emoji: "🔴", name: "YOUTUBE (Individual 1 mes)", price: 85, details: "" },
-            { id: 29, category: "musica", emoji: "🔴", name: "YOUTUBE (Individual 3 meses)", price: 180, details: "" },
-            { id: 30, category: "gaming", emoji: "👾", name: "XBOX GAME PASS ULTIMATE (1 mes)", price: 250, details: "" },
-            { id: 31, category: "gaming", emoji: "👾", name: "XBOX GAME PASS ULTIMATE (2 meses)", price: 360, details: "" },
-            { id: 32, category: "perfiles_otros", emoji: "💥", name: "EMBY", price: 60, details: "" },
-            { id: 33, category: "perfiles_otros", emoji: "💥", name: "JELLYFIN", price: 60, details: "" },
-            { id: 34, category: "perfiles_otros", emoji: "💥", name: "CAPCUT PRO (3 DISPOSITIVOS)", price: 125, details: "" },
-            { id: 35, category: "perfiles_otros", emoji: "💥", name: "CLARO VIDEO", price: 80, details: "Con FOX SPORTS Y PARAMOUNT" },
-            { id: 36, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 3 MESES (1 Perfil)", price: 85, details: "" },
-            { id: 37, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 6 MESES (1 Perfil)", price: 120, details: "" },
-            { id: 38, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 1 AÑO (1 Perfil)", price: 210, details: "" },
-            { id: 39, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 2 MESES (1 Perfil)", price: 60, details: "" },
-            { id: 40, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 3 MESES (1 Perfil)", price: 80, details: "" },
-            { id: 41, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 6 MESES (1 Perfil)", price: 110, details: "" },
-            { id: 42, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM ANUAL (1 Perfil)", price: 180, details: "" },
-            { id: 43, category: "canva", emoji: "🍬", name: "Canva Invitación (1 MES)", price: 95, details: "Correo del cliente" },
-            { id: 44, category: "canva", emoji: "🍬", name: "Canva Invitación (3 MESES)", price: 145, details: "Correo del cliente" },
-            { id: 45, category: "canva", emoji: "🍬", name: "Canva Invitación (6 MESES)", price: 215, details: "Correo del cliente" },
-            { id: 46, category: "canva", emoji: "🍬", name: "Canva Invitación (1 AÑO)", price: 275, details: "Correo del cliente" },
-            { id: 47, category: "canva", emoji: "🎨", name: "Canva anual (a mis datos)", price: 215, details: "" },
-            { id: 48, category: "canva", emoji: "🎨", name: "Canva x 1m (a mis datos)", price: 80, details: "" },
-            { id: 49, category: "completas_tardan", emoji: "🪄", name: "VIX 2 MESES (Completa)", price: 120, details: "Tarda en entregarse" },
-            { id: 50, category: "completas_tardan", emoji: "🪄", name: "VIX 3 MESES (Completa)", price: 180, details: "Tarda en entregarse" },
-            { id: 51, category: "completas_tardan", emoji: "🪄", name: "VIX 6 MESES (Completa)", price: 240, details: "Tarda en entregarse" },
-            { id: 52, category: "completas_tardan", emoji: "🪄", name: "VIX ANUAL (Completa)", price: 360, details: "Tarda en entregarse" },
-            { id: 53, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL 3 MESES (Completa)", price: 195, details: "Tarda en entregarse" },
-            { id: 54, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL 6 MESES (Completa)", price: 270, details: "Tarda en entregarse" },
-            { id: 55, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL ANUAL (Completa)", price: 420, details: "Tarda en entregarse" },
-            { id: 56, category: "completas_tardan", emoji: "🪄", name: "TIDAL FAM TUS DATOS", price: 80, details: "Tarda en entregarse" },
-            { id: 57, category: "completas_tardan", emoji: "🪄", name: "TIDAL FAM MIS DATOS", price: 95, details: "Tarda en entregarse" },
-            { id: 58, category: "completas_tardan", emoji: "🪄", name: "CANVA FAM TUS DATOS", price: 155, details: "Tarda en entregarse" },
-            { id: 59, category: "completas_tardan", emoji: "🪄", name: "CANVA FAM MIS DATOS", price: 110, details: "Tarda en entregarse" },
-            { id: 60, category: "completas_tardan", emoji: "🪄", name: "YOUTUBE FAM A TUS DATOS", price: 145, details: "Tarda en entregarse" },
-            { id: 61, category: "completas_tardan", emoji: "🪄", name: "YOUTUBE FAM MIS DATOS", price: 110, details: "Tarda en entregarse" },
-            { id: 62, category: "completas_general", emoji: "🟥", name: "Netflix (5 disp)", price: 305, details: "" },
-            { id: 63, category: "completas_general", emoji: "🟧", name: "Disney + Star (7 disp)", price: 205, details: "" },
-            { id: 64, category: "completas_general", emoji: "🟦", name: "HBO (5 disp)", price: 130, details: "" },
-            { id: 65, category: "completas_general", emoji: "⬛", name: "Viki Rakuten (4 disp)", price: 80, details: "" },
-            { id: 66, category: "completas_general", emoji: "🟩", name: "Porhub (3 disp)", price: 110, details: "" },
-            { id: 67, category: "completas_general", emoji: "🟪", name: "Prime (6 disp)", price: 115, details: "" },
-            { id: 68, category: "completas_general", emoji: "⬛", name: "Vix (5 disp)", price: 90, details: "" },
-            { id: 69, category: "completas_general", emoji: "⬜️", name: "IPTV SMARTERS (3 disp x 1 mes)", price: 95, details: "" },
-            { id: 70, category: "completas_general", emoji: "🟥", name: "IPTV SMARTERS (3 meses)", price: 190, details: "3 dispositivos" },
-            { id: 71, category: "completas_general", emoji: "🟥", name: "IPTV SMARTERS (6 meses)", price: 250, details: "3 dispositivos" },
-            { id: 72, category: "completas_general", emoji: "🟨", name: "Paramount (6 disp)", price: 100, details: "" },
-            { id: 73, category: "completas_general", emoji: "🟧", name: "Plex (3 disp)", price: 95, details: "" },
-            { id: 74, category: "completas_general", emoji: "🟦", name: "Flujo tv (3 disp)", price: 175, details: "" },
-            { id: 75, category: "completas_general", emoji: "🫫", name: "Mubi (Completa)", price: 95, details: "" },
-            { id: 76, category: "completas_general", emoji: "🟪", name: "Crunchyroll (5 disp)", price: 90, details: "" }
+            { id: 1, category: "individuales", emoji: "💙", name: "Netflix (Individual)", price: 95, details: "" },
+            { id: 2, category: "individuales", emoji: "❤️", name: "Disney + Star (premium)", price: 45, details: "" },
+            { id: 3, category: "individuales", emoji: "💛", name: "HBO MAX", price: 30, details: "" },
+            { id: 4, category: "individuales", emoji: "💚", name: "Pornhub", price: 50, details: "" },
+            { id: 5, category: "individuales", emoji: "🩷", name: "Universal", price: 55, details: "" },
+            { id: 6, category: "individuales", emoji: "🩶", name: "Vix", price: 30, details: "" },
+            { id: 7, category: "individuales", emoji: "❤️", name: "Plex", price: 50, details: "" },
+            { id: 8, category: "individuales", emoji: "🩷", name: "Mubi", price: 25, details: "" },
+            { id: 9, category: "individuales", emoji: "⚽", name: "Caliente TV", price: 60, details: "" },
+            { id: 10, category: "individuales", emoji: "♥️", name: "DramaBox APK (ANDROID)", price: 50, details: "" },
+            { id: 11, category: "individuales", emoji: "🤎", name: "Prime video", price: 30, details: "" },
+            { id: 12, category: "individuales", emoji: "🖤", name: "Crunchyroll", price: 35, details: "Individual" },
+            { id: 13, category: "individuales", emoji: "💙", name: "Viki Rakuten", price: 30, details: "" },
+            { id: 14, category: "individuales", emoji: "🧡", name: "Paramount", price: 30, details: "" },
+            { id: 15, category: "individuales", emoji: "💚", name: "Flujo TV", price: 75, details: "" },
+            { id: 16, category: "individuales", emoji: "🤍", name: "DIRECTV GO", price: 80, details: "" },
+            { id: 17, category: "individuales", emoji: "🤎", name: "Duolingo", price: 80, details: "" },
+            { id: 18, category: "individuales", emoji: "💜", name: "IPTV SMARTERS (1mes)", price: 40, details: "" },
+            { id: 19, category: "individuales", emoji: "🎨", name: "PicsArt", price: 80, details: "" },
+            { id: 20, category: "individuales", emoji: "📁", name: "MICROSOFT OFFICE 365 1 AÑO", price: 300, details: "" },
+            { id: 21, category: "individuales", emoji: "🖥️", name: "APPLE TV 3 meses", price: 150, details: "" },
+            { id: 22, category: "canva", emoji: "🎨", name: "Canva anual (a mis datos)", price: 250, details: "" },
+            { id: 23, category: "canva", emoji: "🎨", name: "Canva x 1m (a mis datos)", price: 75, details: "" },
+            { id: 24, category: "musica", emoji: "🔷", name: "TIDAL (1 mes)", price: 65, details: "" },
+            { id: 25, category: "musica", emoji: "🔷", name: "APPLE MUSIC (2 meses)", price: 130, details: "" },
+            { id: 26, category: "musica", emoji: "💠", name: "SPOTIFY (1 mes)", price: 65, details: "" },
+            { id: 27, category: "musica", emoji: "💠", name: "SPOTIFY (1 año, APK SOLO ANDROID)", price: 150, details: "" },
+            { id: 28, category: "musica", emoji: "🔷️", name: "DEEZER (Individual 1 mes)", price: 65, details: "" },
+            { id: 29, category: "musica", emoji: "🔴", name: "YOUTUBE (Ind. 1 mes x invitación)", price: 80, details: "Que no haya tenido membresía antes" },
+            { id: 30, category: "musica", emoji: "🔴", name: "YOUTUBE (Individual 1 mes)", price: 65, details: "" },
+            { id: 31, category: "musica", emoji: "🔴", name: "YOUTUBE (Individual 3 meses)", price: 150, details: "" },
+            { id: 32, category: "gaming", emoji: "👾", name: "XBOX GAME PASS ULTIMATE (1 mes)", price: 210, details: "" },
+            { id: 33, category: "gaming", emoji: "👾", name: "XBOX GAME PASS ULTIMATE (2 meses)", price: 300, details: "" },
+            { id: 34, category: "perfiles_otros", emoji: "💥", name: "EMBY", price: 50, details: "" },
+            { id: 35, category: "perfiles_otros", emoji: "💥", name: "JELLYFIN", price: 50, details: "" },
+            { id: 36, category: "perfiles_otros", emoji: "💥", name: "CAPCUT PRO (3 DISPOSITIVOS)", price: 105, details: "" },
+            { id: 37, category: "perfiles_otros", emoji: "💥", name: "CLARO VIDEO", price: 65, details: "Con FOX SPORTS Y PARAMOUNT" },
+            { id: 38, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 3 MESES (1 Perfil)", price: 65, details: "" },
+            { id: 39, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 6 MESES (1 Perfil)", price: 90, details: "" },
+            { id: 40, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 1 AÑO (1 Perfil)", price: 150, details: "" },
+            { id: 41, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 2 MESES (1 Perfil)", price: 50, details: "" },
+            { id: 42, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 3 MESES (1 Perfil)", price: 65, details: "" },
+            { id: 43, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 6 MESES (1 Perfil)", price: 90, details: "" },
+            { id: 44, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM ANUAL (1 Perfil)", price: 150, details: "" },
+            { id: 45, category: "canva", emoji: "🍬", name: "Canva Invitación (1 MES)", price: 80, details: "Correo del cliente, Para que no pierda sus diseños" },
+            { id: 46, category: "canva", emoji: "🍬", name: "Canva Invitación (3 MESES)", price: 120, details: "Correo del cliente, Para que no pierda sus diseños" },
+            { id: 47, category: "canva", emoji: "🍬", name: "Canva Invitación (6 MESES)", price: 180, details: "Correo del cliente, Para que no pierda sus diseños" },
+            { id: 48, category: "canva", emoji: "🍬", name: "Canva Invitación (1 AÑO)", price: 230, details: "Correo del cliente, Para que no pierda sus diseños" },
+            { id: 49, category: "completas_tardan", emoji: "🪄", name: "VIX 2 MESES (Completa)", price: 100, details: "Tarda en entregarse" },
+            { id: 50, category: "completas_tardan", emoji: "🪄", name: "VIX 3 MESES (Completa)", price: 150, details: "Tarda en entregarse" },
+            { id: 51, category: "completas_tardan", emoji: "🪄", name: "VIX 6 MESES (Completa)", price: 200, details: "Tarda en entregarse" },
+            { id: 52, category: "completas_tardan", emoji: "🪄", name: "VIX ANUAL (Completa)", price: 300, details: "Tarda en entregarse" },
+            { id: 53, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL 3 MESES (Completa)", price: 150, details: "Tarda en entregarse" },
+            { id: 54, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL 6 MESES (Completa)", price: 200, details: "Tarda en entregarse" },
+            { id: 55, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL ANUAL (Completa)", price: 300, details: "Tarda en entregarse" },
+            { id: 56, category: "completas_tardan", emoji: "🪄", name: "TIDAL FAM TUS DATOS", price: 65, details: "Tarda en entregarse" },
+            { id: 57, category: "completas_tardan", emoji: "🪄", name: "TIDAL FAM MIS DATOS", price: 80, details: "Tarda en entregarse" },
+            { id: 58, category: "completas_tardan", emoji: "🪄", name: "CANVA FAM TUS DATOS", price: 130, details: "Tarda en entregarse" },
+            { id: 59, category: "completas_tardan", emoji: "🪄", name: "CANVA FAM MIS DATOS", price: 90, details: "Tarda en entregarse" },
+            { id: 60, category: "completas_tardan", emoji: "🪄", name: "YOUTUBE FAM A TUS DATOS", price: 120, details: "Tarda en entregarse" },
+            { id: 61, category: "completas_tardan", emoji: "🪄", name: "YOUTUBE FAM MIS DATOS", price: 90, details: "Tarda en entregarse" },
+            { id: 62, category: "completas_general", emoji: "🟥", name: "Netflix (5 disp)", price: 235, details: "" },
+            { id: 63, category: "completas_general", emoji: "🟧", name: "Disney + Star (7 disp)", price: 150, details: "" },
+            { id: 64, category: "completas_general", emoji: "🟦", name: "HBO (5 disp)", price: 95, details: "" },
+            { id: 65, category: "completas_general", emoji: "⬛", name: "Viki Rakuten (4 disp)", price: 65, details: "" },
+            { id: 66, category: "completas_general", emoji: "🟩", name: "Porhub (3 disp)", price: 90, details: "" },
+            { id: 67, category: "completas_general", emoji: "🟪", name: "Prime (6 disp)", price: 95, details: "" },
+            { id: 68, category: "completas_general", emoji: "⬛", name: "Vix (5 disp)", price: 75, details: "" },
+            { id: 69, category: "completas_general", emoji: "⬜️", name: "IPTV SMARTERS (3 disp x 1 mes)", price: 80, details: "" },
+            { id: 70, category: "completas_general", emoji: "🟥", name: "IPTV SMARTERS (3 meses)", price: 160, details: "3 dispositivos" },
+            { id: 71, category: "completas_general", emoji: "🟥", name: "IPTV SMARTERS (6 meses)", price: 210, details: "3 dispositivos" },
+            { id: 72, category: "completas_general", emoji: "🟨", name: "Paramount (6 disp)", price: 85, details: "" },
+            { id: 73, category: "completas_general", emoji: "🟧", name: "Plex (3 disp)", price: 80, details: "" },
+            { id: 74, category: "completas_general", emoji: "🟦", name: "Flujo tv (3 disp)", price: 145, details: "" },
+            { id: 75, category: "completas_general", emoji: "🫫", name: "Mubi (Completa)", price: 80, details: "" },
+            { id: 76, category: "completas_general", emoji: "🟪", name: "Crunchyroll (5 disp)", price: 75, details: "" }
         ];
 
         const rawMovieData = [
             "DESTINO FINAL 6: LAZOS DE SANGRE", "Karate kid: Leyendas", "THUNDERBOLTS", "PECADORES", "EL CONTADOR 2", "Mi nombre es Khan", "Mi familia", "Morbius", "Amigos imaginarios", "Cómplices del engaño", "Arácnidos", "Winnie the Pooh: Sangre y miel 2", "En las profundidades del Sena", "Hart: Duro de entrenar 2", "¿Estoy bien?", "Ultraman: El ascenso", "El ministerio de la guerra", "MR-9: Misión mortal", "Guerra civil", "Tarot de la muerte", "El Halcón", "La primera profecia", "Angeles inesperados", "Black to black", "En tierras de santos y pecadores", "La tierra prometida", "Atlas", "Contra todos", "Sismo magnitud 9.5", "South Park: El fin de la obesidad", "Good boy", "Godzilla y Kong: El nuevo imperio", "Profesión peligro", "Desafiantes", "Noche de bodas", "Lazos de vida", "Garra de hierro", "Birth/Rebirth", "Telma: La unicornio", "Darkness of man", "El guardian de las monarcas", "Godzilla: Minus one", "Arthur", "La idea de tí", "Frida", "Abigail", "Recuerdos mortales", "La noche que volvieron a casa", "Miller's girl", "Audi vs Lancia", "Jack en la caja maldita 3", "Baby Shark: El gran show", "Cazafantasmas: Apocalipsis fantasma", "Los 3 mosqueteros 2", "El Roomie", "Dogman", "Hachiko 2", "Megamente 2", "Furiosa", "Rebel Moon: Parte 2", "Duna: parte 2", "El gato con botas: El último deseo", "Venom", "Toy Story 4", "Orión y la oscuridad", "Leo", "Red", "Este cuerpo no es mio", "Intensamente", "Patos", "Beekeeper", "La sociedad en la nieve", "Madame web", "No lo abras", "Lift: Un robo de primera clase", "El astronauta", "Demon slayer", "Ferrari", "Con todos menos contigo", "El resplandor", "La naranja mecánica", "Rescate imposible", "Need for speed", "El planeta de los simios: Nuevo reino", "Garfiel: Fuera de casa", "Un lugar en silencio 3", "Radical", "El amarre", "La dama de negro", "El pájaro loco se va de campamento", "Tornados", "Si señor!", "La última sesión de Freud", "Mulan", "Ratatouille", "Historias cruzadas", "Sentencia de muerte", "Busqueda implacable", "Londres bajo fuego", "El Justiciero 3", "Deadpool 3", "Deadpool", "Deadpool 2", "Inmaculada", "Barbie: Escuela de princesas", "Al rescate de Fondo de Bikini", "MaXXXine", "Bad Boys 2", "Y donde están las rubias?", "Herencia Siniestra", "Cuarto de guerra", "Cicatrices", "Una propuesta indecorosa", "Shrek 4", "Romper el círculo", "El exorcista del papá", "El candidato honesto", "Regresa a mí", "El hombre de la tierra", "Toy Story 3", "Escuadron suicida", "El lobo y el león", "La monja 2", "El lobo de Wall street", "La legión del águila", "Cruzada", "Gatúbela", "Vacaciones", "Harry Potter 6", "Dexter New blood", "Beetlejuice", "Hasta el último hombre", "Shooter: El tirador", "La casa de cera", "Five Nights at Freddy's", "Doctor Strange 2", "El último conjuro", "Doctor Strange", "Kung Fu Panda", "El gigante de hierro", "La profecía", "La profecía 2", "La profecía 3", "Flamin hot", "Requiem", "Hechizo de amor", "Exhuma", "Musica, amigos y fiesta", "Toc toc: Una comedia obsesivamente divertida", "Sweeney Todd: El barbero demoníaco de la calle Fleet", "Sin escape", "Mi amigo el pingüino", "Transformers uno", "John Wick 4", "La heredera millonaria divorciada", "Anticristo", "Garras", "Con ganas de triunfar", "La foquita", "De noche con el diablo", "Sin lugar para los débiles", "Anticristo: El exorcismo de Lara", "El cadáver de la novia", "7 deseos", "El congreso", "Irreversible", "Rápidos y furiosos 9", "Rápidos y furiosos 10", "No hables con extraños", "Alien Prometheus", "La sustancia", "Yo antes de tí", "El Joker", "Talk to me (Háblame)", "La delgada línea amarilla", "Quisiera ser millonario", "Harry Potter 8", "En busca del rey sol", "Spider-man: Sin camino a casa", "Inframundo 3", "Arrastrame al infierno", "El Lorax", "El Infierno", "El mariachi", "Venom 2", "Ruega por nosotros", "Que viva México!", "It", "La reunión del diablo", "Efectos secundarios", "Robot salvaje", "Toy Story", "Monsters Inc", "Toy Story 2", "Hijos de perra", "Exorcismo de Dios", "Queer ask folk: Temporada 1", "El fantasma de la ópera", "El juego", "Señales", "El rey león", "Avatar", "Avatar 2", "Milagros inesperados", "El Grinch animado", "Crisis en las tierras infinitas: parte uno", "Batman vs Superman", "Santa Claus vs el Diablo", "La propuesta", "The fallout", "Star Trek: Discovery - Temporada 1", "Star Trek: Discovery - Temporada 2", "El extraño mundo de Jack", "Tengo ganas de tí", "La santa muerte", "Barbie", "La vida es bella", "Nada que ver", "Palmer", "La forja", "Trolls 3", "Mi villano 4", "Mario Bros", "Querido intruso", "Yo, robot", "El zorro y el sabueso", "Sospechas mortales", "Carreras clandestinas", "Los suplentes", "Los blancos no saben saltar", "Emma", "A través de mi ventana", "A través del mar", "A través de tu mirada", "Supercampeones", "Pollitos en fuga 2", "Después de la vida", "Me vuelves loca", "El espacio entre nosotros", "Un guardabosque", "I.Q. El genio del amor", "Adele y el misterio de la momia", "Greyhound: En la mirada del enemigo", "Señales de amor", "Cuentos de Navidad de Mickey", "La princesita", "Diario de una pasión", "Quisiera ser grande", "Spy: Una espía despistada", "Hansel y Gretel", "Megalodon 2", "Shutter", "El teléfono negro", "Canta y no llores", "La era de hielo 5", "Flash", "Nautilus", "Ghosted", "Thor", "Coco", "El planeta del tesoro", "El Hobbit", "El Hobbit 2", "El Hobbit 3", "Atrápame si puedes", "17 otra vez", "El aro", "En el bosque", "Cristóbal Colón, de oficio descubridor", "La nochebuena es mi condena", "3 lancheros muy picudos", "Jeepers Creepers 4", "El exorcista", "La misma luna", "La venganza de la casa del lago", "Pide al tiempo que vuelva", "365 días", "365 días: 2", "Gloria", "Vaselina", "Ceguera", "El precio de la belleza", "Pantaleón y las visitadoras", "El laberinto del fauno", "Código: Traje rojo", "Blue Lock: Episodio Nagi", "Una aventura en Marruecos", "Nadie podrá salvarte", "Tamaño natural", "El tiempo que tenemos", "Oppenheimer", "Wall-E", "Recién cazado", "Tetris", "Jurassic World 3", "Morgana: Temporada 1", "Morgana: Temporada 2", "Morgana: Temporada 3", "Mi amiga la sirena", "El sobreviviente", "Códigos de guerra", "El último castillo", "Las crónicas de Narnia", "Las crónicas de Narnia 2", "Las crónicas de Narnia 3", "Duelo de Titanes", "El cuervo: Guía para un asesino", "El perfume: Historia de un asesinato", "The Warriors", "One Direction: Así somos", "Santana ¿Americano yo?", "Aprender a soltar", "Saw 5", "La leyenda del jinete sin cabeza", "Que paso ayer", "Que paso ayer 2", "Que paso ayer 3", "Scary movie", "Las cenizas de Ángela", "Todos los caminos llevan a casa", "Slevin", "Mente indomable", "A prueba de fuego", "Pulgarcita", "Kung Fu Panda 4", "Desde mi cielo", "Wicked: Parte uno", "Saw 4", "Pasante de moda", "Moana", "Coraline y la puerta secreta", "Imaginario: Juguete diabólico", "Atrapados en lo profundo", "Aguas siniestras", "Bluey: Temporada 1", "Sueños sobre hielo", "Jackass por siempre", "Hombres de negro 4: Internacional", "Gladiador", "Alicia en el país de las pesadillas", "Culpa tuya", "Dulce venganza", "3 idiotas", "Una chica fuera de serie", "La puerta del sótano", "Justicia implacable", "Alienoid: Parte uno", "El Grinch", "Hereje (Heretic)", "Los puentes de Madison", "Sangre por sangre", "Viaje al amanecer", "Made in Abyss 2: Wandering Twilight", "Star Wars: Episodio 4", "Star Wars: Episodio 5", "Star Wars: Episodio 6", "Made in Abyss: El amanecer del alma profunda", "Road House", "Cienpiés humano", "Kraven: El cazador", "Sonido de libertad", "Camino hacia el terror 3", "Depredador: La presa", "El origen de los guardianes", "Aquaman 2", "El expreso polar", "Gigantes de acero", "7 días", "El juego del calamar: Temporada 2", "El jardín secreto", "El viaje de Chihiro", "El castillo ambulante", "Milagros del cielo", "Emilia Pérez", "Mary and Max", "Cartas a Van Gogh", "Krampus", "Solo leveling", "Bernardo y Bianca", "Robin Hood", "Jack el cazagigantes", "El conde de Montecristo", "Parano-IA", "El hoyo 2", "Días perfectos", "Amor", "El gran Simón", "Nosferatu", "El silencio", "Flow", "Una pequeña confusión", "Gran turismo", "Cónclave", "El sargento de hierro", "Simplemente irresistible", "Una aventura extraordinaria", "Thundercats", "Nacho libre", "Infinite", "La cruda verdad", "El juego del calamar: Temporada 1", "Parpadea dos veces", "Los 33", "Harry Potter y la piedra filosofal", "Harry Potter 2", "Harry Potter 3", "SAGA EL REY LEÓN", "SAGA SONIC", "Sonríe 2", "Terrifier 3", "Moana 2", "Las aventuras de Dog Man", "After: Para siempre", "Titanic", "La trampa", "Work It: Al ritmo de los sueños", "Harry Potter 4", "Harry Potter 5", "Harry Potter 7", "Los amantes del círculo polar", "Amor indigo", "Amelie", "Longlegs", "Estigma", "La séptima profecía", "Sin nombre", "El estudiante", "La chica de la aguja", "Cuando menos te lo esperas (Alguien tiene que ceder)", "Mazinger Z: Infinity", "Sintonía de amor", "Danza con lobos", "Kids: Vidas perdidas", "Anora", "Dragon Quest: Las aventuras de Fly", "Historia americana X", "El brutalista", "Free guy: Tomando el control", "Interestelar", "Capitán América: Un nuevo mundo", "Paddington en Perú", "El secreto del abismo", "Pobres criaturas", "Los marginados", "Hombre G: Sufre mamón", "Atracción peligrosa", "C-Kan: Mi canción", "Lucy", "Mientras estes conmigo", "Memorias de un caracol", "Bad boys 3", "Bridget Jones: Loca por él", "Implacable", "Project silence", "A los 13", "Capitán América: El primer vengador", "Capitán América: El soldado del invierno", "Capitán América: Civil war", "Iron man", "Iron man 2", "Iron man 3", "El gran Alberto", "Alien: El octavo pasajero", "Aliens: El regreso", "Alien 3", "Alien: Resurrección", "Alien: Covenant", "Alien: Romulus", "Un desastre de pelicula", "Viral", "Sex and the city", "Sex and the city 2", "Spartacus: Temporada 1", "Matrix", "3MSC", "Cien años de soledad", "Ciudad de Dios", "Poltergeist", "Poltergeist 2", "Poltergeist 3", "Poltergeist 2015", "La profecía 4", "Popeyes Revenge", "Critters: Extrañas criaturas", "Una vida mejor", "Una historia del Bronx", "Alto riesgo", "Ruido", "Death race: La carrera de la muerte", "La fortaleza del Vicio", "Del crepúsculo al amanecer", "El viaje más largo", "Gigolo por accidente en Europa", "Los tres chiflados", "Better Man: La historia de Robbie Williams", "Salyut-7: Héroes en el espacio", "Devils stay", "Distrito 13: Parte 2", "La red social", "Golden Boy", "La vida de Jesús", "Johnny cogio su fusil", "La pasión de Cristo", "Cuentos inmorales", "9 orgasmos", "El abismo secreto", "Space Jam", "Tierra de los muertos", "La horda", "El baño del diablo", "Cria siniestra", "En busca de la felicidad", "El fundador (Hambre de poder)", "Lo imposible", "Más allá de los sueños", "La cara oculta", "Alienoid: Parte dos", "Vampire Academy", "Crossroad", "The Drowning", "Terminator 3", "Odio el amor", "Caballo de guerra", "Sin señas particulares", "Todas menos tú", "Dragon Ball Super: Broly", "El expreso del miedo", "Winnie Pooh y el pequeño efelante", "The Rookie: Temporada 5", "The Rookie: Temporada 2", "Volando alto", "Zoo: Temporada 1", "Zoo: Temporada 2", "Frozen", "El luchador", "El leñador", "Mickey 17", "007: Spectre", "Lilo y Stitch 2", "Life: Vida inteligente", "Normal people", "El hilo rojo", "Elemental", "Peter Pan: Pesadilla en la tierra de Nunca jamás", "Spartacus: Temporada 2", "El Amateur: Operación venganza", "Togo", "Balto", "Los Beverly ricos", "Dulce o truco", "Portales", "KISS contra los fantasmas", "Reyes del Rock", "Sonic 2", "La historia de Jim Carroll: Diario de un rebelde", "Lluvia negra", "No manches Frida 2", "El código Da Vinci", "Intensa-mente 2", "Las Brujas 1990", "Pinocho", "Una película de Minecraft", "El mono", "Midsomar, el terror no espera de noche", "Que huevos Sofía", "Contraataque", "Blanca Nieves", "Mesa de regalos II", "Shrek", "Shrek 2", "Shrek 3", "Horton y el mundo de los quién", "Annabelle 3", "Superman regresa", "Heroico", "Extraordinario", "Hombre lobo"
         ];
+
+        const rawBookData = [
+            // Placeholder - Reemplaza esto con tu lista real de libros
+            "Cien años de soledad - Gabriel García Márquez",
+            "El principito - Antoine de Saint-Exupéry",
+            "1984 - George Orwell",
+            "Don Quijote de la Mancha - Miguel de Cervantes",
+            "Orgullo y prejuicio - Jane Austen",
+            "Matar un ruiseñor - Harper Lee",
+            "El gran Gatsby - F. Scott Fitzgerald",
+            "Crimen y castigo - Fiódor Dostoyevski",
+            "La Odisea - Homero",
+            "Hamlet - William Shakespeare",
+            "Fahrenheit 451 - Ray Bradbury",
+            "El Señor de los Anillos - J.R.R. Tolkien",
+            "Crónica de una muerte anunciada - Gabriel García Márquez",
+            "Ensayo sobre la ceguera - José Saramago",
+            "El amor en los tiempos del cólera - Gabriel García Márquez"
+        ];
         
         const serviceContainer = document.getElementById('service-container');
         const movieContainer = document.getElementById('movie-container');
+        const bookContainer = document.getElementById('book-container');
         
         const filterButtonsCuentas = document.querySelectorAll('#filters-cuentas .filter-button');
         const searchInputCuentas = document.getElementById('search-input-cuentas');
         const searchInputPeliculas = document.getElementById('search-input-peliculas');
+        const searchInputLibros = document.getElementById('search-input-libros');
 
         const navButtons = document.querySelectorAll('.nav-button');
         const viewCuentas = document.getElementById('view-cuentas');
         const viewPeliculas = document.getElementById('view-peliculas');
+        const viewLibros = document.getElementById('view-libros');
+
         const copyNotification = document.getElementById('copy-notification');
         let notificationTimeout;
         
@@ -314,6 +354,13 @@
             name: title,
             emoji: "🎬" 
         }));
+
+        const booksData = rawBookData.sort((a,b) => a.localeCompare(b)).map((title, index) => ({
+            id: index + 1,
+            name: title,
+            emoji: "📚"
+        }));
+
 
         function renderServices() {
             const searchTerm = searchInputCuentas.value.toLowerCase();
@@ -417,6 +464,50 @@
                 });
             });
         }
+
+        function renderBooks() {
+            const searchTerm = searchInputLibros.value.toLowerCase();
+            let booksToDisplay = booksData;
+
+            if (searchTerm) {
+                booksToDisplay = booksData.filter(book => 
+                    book.name.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            bookContainer.innerHTML = ''; 
+            if (booksToDisplay.length === 0) {
+                bookContainer.innerHTML = '<p class="col-span-full text-center text-stone-500 py-10">No hay libros que coincidan con tu búsqueda.</p>';
+                return;
+            }
+
+            booksToDisplay.forEach(book => {
+                const card = document.createElement('div');
+                card.className = 'content-card flex flex-col'; 
+                
+                const whatsappMessage = `Hola, me interesa el libro: ${book.name}. ¿Está disponible?`;
+                const encodedWhatsappMessage = encodeURIComponent(whatsappMessage);
+                const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedWhatsappMessage}`;
+
+                card.innerHTML = `
+                    <div class="flex-grow flex items-center">
+                        <span class="text-2xl mr-3">${book.emoji}</span>
+                        <h3 class="text-md font-medium text-stone-700">${book.name}</h3>
+                    </div>
+                    <div class="mt-3 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto justify-end">
+                         <button class="action-button copy-button w-full sm:w-auto" data-text="${book.name}">Copiar Título</button>
+                         <a href="${whatsappLink}" target="_blank" class="action-button whatsapp-button text-center w-full sm:w-auto">Consultar WhatsApp</a>
+                    </div>
+                `;
+                bookContainer.appendChild(card);
+            });
+
+            document.querySelectorAll('#book-container .copy-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    copyToClipboard(e.target.dataset.text);
+                });
+            });
+        }
         
         navButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -424,16 +515,22 @@
                 navButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
 
+                viewCuentas.classList.add('hidden-view');
+                viewPeliculas.classList.add('hidden-view');
+                viewLibros.classList.add('hidden-view');
+
                 if (view === 'cuentas') {
                     viewCuentas.classList.remove('hidden-view');
-                    viewPeliculas.classList.add('hidden-view');
                     if(searchInputCuentas) searchInputCuentas.value = ''; 
                     renderServices(); 
                 } else if (view === 'peliculas') {
                     viewPeliculas.classList.remove('hidden-view');
-                    viewCuentas.classList.add('hidden-view');
                     if(searchInputPeliculas) searchInputPeliculas.value = ''; 
                     renderMovies();
+                } else if (view === 'libros') {
+                    viewLibros.classList.remove('hidden-view');
+                    if(searchInputLibros) searchInputLibros.value = '';
+                    renderBooks();
                 }
             });
         });
@@ -463,12 +560,19 @@
                 }
             });
         }
+
+        if (searchInputLibros) {
+            searchInputLibros.addEventListener('input', renderBooks);
+            searchInputLibros.addEventListener('keyup', function(event) {
+                if (event.key === "Enter") {
+                    renderBooks();
+                }
+            });
+        }
         
         // Initial Display: Cuentas
         viewCuentas.classList.remove('hidden-view');
-        viewPeliculas.classList.add('hidden-view');
         document.getElementById('nav-cuentas').classList.add('active');
-        document.getElementById('nav-peliculas').classList.remove('active');
         if (filterButtonsCuentas.length > 0) { 
              filterButtonsCuentas.forEach(btn => btn.classList.remove('active'));
              document.querySelector('#filters-cuentas .filter-button[data-category="all"]').classList.add('active');
