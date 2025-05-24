@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Visualization & Content Choices:
-    * Section: Cuentas - Important Notices, Service Categories (Filters), Service Details (Cards with Copy/WhatsApp).
+    * Section: Cuentas - Important Notices, Service Categories (Filters), Service Details (Cards with Copy/WhatsApp, public prices).
     * Section: Películas - Movie Titles (Cards with Copy/WhatsApp).
     * Section: Libros - Book Titles (Cards with Copy/WhatsApp).
     * General: Main tabs for navigation.
@@ -173,85 +173,96 @@
     </div>
 
     <script>
-        const WHATSAPP_NUMBER = "5219331254359"; // Número de WhatsApp actualizado
+        const WHATSAPP_NUMBER = "5219331254359"; 
 
-        const servicesData = [
-            { id: 1, category: "individuales", emoji: "💙", name: "Netflix (Individual)", price: 95, details: "" },
-            { id: 2, category: "individuales", emoji: "❤️", name: "Disney + Star (premium)", price: 45, details: "" },
-            { id: 3, category: "individuales", emoji: "💛", name: "HBO MAX", price: 30, details: "" },
-            { id: 4, category: "individuales", emoji: "💚", name: "Pornhub", price: 50, details: "" },
-            { id: 5, category: "individuales", emoji: "🩷", name: "Universal", price: 55, details: "" },
-            { id: 6, category: "individuales", emoji: "🩶", name: "Vix", price: 30, details: "" },
-            { id: 7, category: "individuales", emoji: "❤️", name: "Plex", price: 50, details: "" },
-            { id: 8, category: "individuales", emoji: "🩷", name: "Mubi", price: 25, details: "" },
+        const servicesData = [ // Precios actualizados para el público
+            { id: 1, category: "individuales", emoji: "💙", name: "Netflix (Individual)", price: 130, details: "" },
+            { id: 2, category: "individuales", emoji: "❤️", name: "Disney + Star (premium)", price: 60, details: "" },
+            { id: 3, category: "individuales", emoji: "💛", name: "HBO MAX", price: 60, details: "" }, // Precio actualizado
+            { id: 4, category: "individuales", emoji: "💚", name: "Pornhub", price: 60, details: "" },
+            { id: 5, category: "individuales", emoji: "🩷", name: "Universal", price: 65, details: "" },
+            { id: 6, category: "individuales", emoji: "🩶", name: "Vix", price: 40, details: "" }, // Precio actualizado
+            { id: 7, category: "individuales", emoji: "❤️", name: "Plex", price: 60, details: "" },
+            { id: 8, category: "individuales", emoji: "🩷", name: "Mubi", price: 30, details: "" },
             { id: 9, category: "individuales", emoji: "⚽", name: "Caliente TV", price: 60, details: "" },
-            { id: 10, category: "individuales", emoji: "♥️", name: "DramaBox APK (ANDROID)", price: 50, details: "" },
-            { id: 11, category: "individuales", emoji: "🤎", name: "Prime video", price: 30, details: "" },
-            { id: 12, category: "individuales", emoji: "🖤", name: "Crunchyroll", price: 35, details: "Individual" },
-            { id: 13, category: "individuales", emoji: "💙", name: "Viki Rakuten", price: 30, details: "" },
-            { id: 14, category: "individuales", emoji: "🧡", name: "Paramount", price: 30, details: "" },
-            { id: 15, category: "individuales", emoji: "💚", name: "Flujo TV", price: 75, details: "" },
-            { id: 16, category: "individuales", emoji: "🤍", name: "DIRECTV GO", price: 80, details: "" },
-            { id: 17, category: "individuales", emoji: "🤎", name: "Duolingo", price: 80, details: "" },
-            { id: 18, category: "individuales", emoji: "💜", name: "IPTV SMARTERS (1mes)", price: 40, details: "" },
-            { id: 19, category: "individuales", emoji: "🎨", name: "PicsArt", price: 80, details: "" },
-            { id: 20, category: "individuales", emoji: "📁", name: "MICROSOFT OFFICE 365 1 AÑO", price: 300, details: "" },
-            { id: 21, category: "individuales", emoji: "🖥️", name: "APPLE TV 3 meses", price: 150, details: "" },
+            { id: 10, category: "individuales", emoji: "♥️", name: "DramaBox APK (ANDROID)", price: 60, details: "" },
+            { id: 11, category: "individuales", emoji: "🤎", name: "Prime video", price: 40, details: "" }, // Asumo que este es el C/A, ajustado
+            // Prime video S/A no estaba en la última lista, si es necesario se puede añadir
+            // Prime video Combo no estaba en la última lista, si es necesario se puede añadir
+            { id: 12, category: "individuales", emoji: "🖤", name: "Crunchyroll", price: 50, details: "Individual" }, // Precio actualizado
+            { id: 13, category: "individuales", emoji: "💙", name: "Viki Rakuten", price: 35, details: "" },
+            { id: 14, category: "individuales", emoji: "🧡", name: "Paramount", price: 45, details: "" }, // Precio actualizado
+            { id: 15, category: "individuales", emoji: "💚", name: "Flujo TV", price: 90, details: "" },
+            { id: 16, category: "individuales", emoji: "🤍", name: "DIRECTV GO", price: 95, details: "" },
+            { id: 17, category: "individuales", emoji: "🤎", name: "Duolingo", price: 95, details: "" },
+            { id: 18, category: "individuales", emoji: "💜", name: "IPTV SMARTERS (1mes)", price: 50, details: "" },
+            { id: 19, category: "individuales", emoji: "🎨", name: "PicsArt", price: 95, details: "" },
+            { id: 20, category: "individuales", emoji: "📁", name: "MICROSOFT OFFICE 365 1 AÑO", price: 400, details: "" },
+            { id: 21, category: "individuales", emoji: "🖥️", name: "APPLE TV 3 meses", price: 180, details: "" },
+            
             { id: 22, category: "canva", emoji: "🎨", name: "Canva anual (a mis datos)", price: 250, details: "" },
             { id: 23, category: "canva", emoji: "🎨", name: "Canva x 1m (a mis datos)", price: 75, details: "" },
-            { id: 24, category: "musica", emoji: "🔷", name: "TIDAL (1 mes)", price: 65, details: "" },
-            { id: 25, category: "musica", emoji: "🔷", name: "APPLE MUSIC (2 meses)", price: 130, details: "" },
-            { id: 26, category: "musica", emoji: "💠", name: "SPOTIFY (1 mes)", price: 65, details: "" },
-            { id: 27, category: "musica", emoji: "💠", name: "SPOTIFY (1 año, APK SOLO ANDROID)", price: 150, details: "" },
-            { id: 28, category: "musica", emoji: "🔷️", name: "DEEZER (Individual 1 mes)", price: 65, details: "" },
-            { id: 29, category: "musica", emoji: "🔴", name: "YOUTUBE (Ind. 1 mes x invitación)", price: 80, details: "Que no haya tenido membresía antes" },
-            { id: 30, category: "musica", emoji: "🔴", name: "YOUTUBE (Individual 1 mes)", price: 65, details: "" },
-            { id: 31, category: "musica", emoji: "🔴", name: "YOUTUBE (Individual 3 meses)", price: 150, details: "" },
-            { id: 32, category: "gaming", emoji: "👾", name: "XBOX GAME PASS ULTIMATE (1 mes)", price: 210, details: "" },
-            { id: 33, category: "gaming", emoji: "👾", name: "XBOX GAME PASS ULTIMATE (2 meses)", price: 300, details: "" },
-            { id: 34, category: "perfiles_otros", emoji: "💥", name: "EMBY", price: 50, details: "" },
-            { id: 35, category: "perfiles_otros", emoji: "💥", name: "JELLYFIN", price: 50, details: "" },
-            { id: 36, category: "perfiles_otros", emoji: "💥", name: "CAPCUT PRO (3 DISPOSITIVOS)", price: 105, details: "" },
-            { id: 37, category: "perfiles_otros", emoji: "💥", name: "CLARO VIDEO", price: 65, details: "Con FOX SPORTS Y PARAMOUNT" },
-            { id: 38, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 3 MESES (1 Perfil)", price: 65, details: "" },
-            { id: 39, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 6 MESES (1 Perfil)", price: 90, details: "" },
-            { id: 40, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 1 AÑO (1 Perfil)", price: 150, details: "" },
-            { id: 41, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 2 MESES (1 Perfil)", price: 50, details: "" },
-            { id: 42, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 3 MESES (1 Perfil)", price: 65, details: "" },
-            { id: 43, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 6 MESES (1 Perfil)", price: 90, details: "" },
-            { id: 44, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM ANUAL (1 Perfil)", price: 150, details: "" },
-            { id: 45, category: "canva", emoji: "🍬", name: "Canva Invitación (1 MES)", price: 80, details: "Correo del cliente, Para que no pierda sus diseños" },
-            { id: 46, category: "canva", emoji: "🍬", name: "Canva Invitación (3 MESES)", price: 120, details: "Correo del cliente, Para que no pierda sus diseños" },
-            { id: 47, category: "canva", emoji: "🍬", name: "Canva Invitación (6 MESES)", price: 180, details: "Correo del cliente, Para que no pierda sus diseños" },
-            { id: 48, category: "canva", emoji: "🍬", name: "Canva Invitación (1 AÑO)", price: 230, details: "Correo del cliente, Para que no pierda sus diseños" },
-            { id: 49, category: "completas_tardan", emoji: "🪄", name: "VIX 2 MESES (Completa)", price: 100, details: "Tarda en entregarse" },
-            { id: 50, category: "completas_tardan", emoji: "🪄", name: "VIX 3 MESES (Completa)", price: 150, details: "Tarda en entregarse" },
-            { id: 51, category: "completas_tardan", emoji: "🪄", name: "VIX 6 MESES (Completa)", price: 200, details: "Tarda en entregarse" },
-            { id: 52, category: "completas_tardan", emoji: "🪄", name: "VIX ANUAL (Completa)", price: 300, details: "Tarda en entregarse" },
-            { id: 53, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL 3 MESES (Completa)", price: 150, details: "Tarda en entregarse" },
-            { id: 54, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL 6 MESES (Completa)", price: 200, details: "Tarda en entregarse" },
-            { id: 55, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL ANUAL (Completa)", price: 300, details: "Tarda en entregarse" },
-            { id: 56, category: "completas_tardan", emoji: "🪄", name: "TIDAL FAM TUS DATOS", price: 65, details: "Tarda en entregarse" },
-            { id: 57, category: "completas_tardan", emoji: "🪄", name: "TIDAL FAM MIS DATOS", price: 80, details: "Tarda en entregarse" },
-            { id: 58, category: "completas_tardan", emoji: "🪄", name: "CANVA FAM TUS DATOS", price: 130, details: "Tarda en entregarse" },
-            { id: 59, category: "completas_tardan", emoji: "🪄", name: "CANVA FAM MIS DATOS", price: 90, details: "Tarda en entregarse" },
-            { id: 60, category: "completas_tardan", emoji: "🪄", name: "YOUTUBE FAM A TUS DATOS", price: 120, details: "Tarda en entregarse" },
-            { id: 61, category: "completas_tardan", emoji: "🪄", name: "YOUTUBE FAM MIS DATOS", price: 90, details: "Tarda en entregarse" },
-            { id: 62, category: "completas_general", emoji: "🟥", name: "Netflix (5 disp)", price: 235, details: "" },
-            { id: 63, category: "completas_general", emoji: "🟧", name: "Disney + Star (7 disp)", price: 150, details: "" },
-            { id: 64, category: "completas_general", emoji: "🟦", name: "HBO (5 disp)", price: 95, details: "" },
-            { id: 65, category: "completas_general", emoji: "⬛", name: "Viki Rakuten (4 disp)", price: 65, details: "" },
-            { id: 66, category: "completas_general", emoji: "🟩", name: "Porhub (3 disp)", price: 90, details: "" },
-            { id: 67, category: "completas_general", emoji: "🟪", name: "Prime (6 disp)", price: 95, details: "" },
-            { id: 68, category: "completas_general", emoji: "⬛", name: "Vix (5 disp)", price: 75, details: "" },
-            { id: 69, category: "completas_general", emoji: "⬜️", name: "IPTV SMARTERS (3 disp x 1 mes)", price: 80, details: "" },
-            { id: 70, category: "completas_general", emoji: "🟥", name: "IPTV SMARTERS (3 meses)", price: 160, details: "3 dispositivos" },
-            { id: 71, category: "completas_general", emoji: "🟥", name: "IPTV SMARTERS (6 meses)", price: 210, details: "3 dispositivos" },
-            { id: 72, category: "completas_general", emoji: "🟨", name: "Paramount (6 disp)", price: 85, details: "" },
-            { id: 73, category: "completas_general", emoji: "🟧", name: "Plex (3 disp)", price: 80, details: "" },
-            { id: 74, category: "completas_general", emoji: "🟦", name: "Flujo tv (3 disp)", price: 145, details: "" },
-            { id: 75, category: "completas_general", emoji: "🫫", name: "Mubi (Completa)", price: 80, details: "" },
-            { id: 76, category: "completas_general", emoji: "🟪", name: "Crunchyroll (5 disp)", price: 75, details: "" }
+
+            { id: 24, category: "musica", emoji: "🔷", name: "TIDAL (1 mes)", price: 80, details: "" },
+            { id: 25, category: "musica", emoji: "🔷", name: "APPLE MUSIC (2 meses)", price: 155, details: "" },
+            { id: 26, category: "musica", emoji: "💠", name: "SPOTIFY (1 mes)", price: 80, details: "" },
+            { id: 27, category: "musica", emoji: "💠", name: "SPOTIFY (1 año, APK SOLO ANDROID)", price: 180, details: "" }, // Precio ajustado
+            { id: 28, category: "musica", emoji: "🔷️", name: "DEEZER (Individual 1 mes)", price: 80, details: "" },
+            { id: 29, category: "musica", emoji: "🔴", name: "YOUTUBE (Ind. 1 mes x invitación)", price: 95, details: "Que no haya tenido membresía antes" },
+            { id: 30, category: "musica", emoji: "🔴", name: "YOUTUBE (Individual 1 mes)", price: 85, details: "" },
+            { id: 31, category: "musica", emoji: "🔴", name: "YOUTUBE (Individual 3 meses)", price: 180, details: "" },
+
+            { id: 32, category: "gaming", emoji: "👾", name: "XBOX GAME PASS ULTIMATE (1 mes)", price: 250, details: "" },
+            { id: 33, category: "gaming", emoji: "👾", name: "XBOX GAME PASS ULTIMATE (2 meses)", price: 360, details: "" },
+
+            { id: 34, category: "perfiles_otros", emoji: "💥", name: "EMBY", price: 60, details: "" },
+            { id: 35, category: "perfiles_otros", emoji: "💥", name: "JELLYFIN", price: 60, details: "" },
+            { id: 36, category: "perfiles_otros", emoji: "💥", name: "CAPCUT PRO (3 DISPOSITIVOS)", price: 125, details: "" },
+            { id: 37, category: "perfiles_otros", emoji: "💥", name: "CLARO VIDEO", price: 80, details: "Con FOX SPORTS Y PARAMOUNT" },
+
+            { id: 38, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 3 MESES (1 Perfil)", price: 85, details: "" },
+            { id: 39, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 6 MESES (1 Perfil)", price: 120, details: "" },
+            { id: 40, category: "multiples_meses", emoji: "🐉", name: "CRUNCHYROLL 1 AÑO (1 Perfil)", price: 210, details: "" },
+            
+            { id: 41, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 2 MESES (1 Perfil)", price: 60, details: "" },
+            { id: 42, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 3 MESES (1 Perfil)", price: 80, details: "" },
+            { id: 43, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM 6 MESES (1 Perfil)", price: 110, details: "" },
+            { id: 44, category: "multiples_meses", emoji: "🦋", name: "VIX PREMIUM ANUAL (1 Perfil)", price: 180, details: "" },
+            
+            { id: 45, category: "canva", emoji: "🍬", name: "Canva Invitación (1 MES)", price: 95, details: "Correo del cliente, Para que no pierda sus diseños" },
+            { id: 46, category: "canva", emoji: "🍬", name: "Canva Invitación (3 MESES)", price: 145, details: "Correo del cliente, Para que no pierda sus diseños" },
+            { id: 47, category: "canva", emoji: "🍬", name: "Canva Invitación (6 MESES)", price: 215, details: "Correo del cliente, Para que no pierda sus diseños" },
+            { id: 48, category: "canva", emoji: "🍬", name: "Canva Invitación (1 AÑO)", price: 275, details: "Correo del cliente, Para que no pierda sus diseños" },
+            
+            { id: 49, category: "completas_tardan", emoji: "🪄", name: "VIX 2 MESES (Completa)", price: 120, details: "Tarda en entregarse" },
+            { id: 50, category: "completas_tardan", emoji: "🪄", name: "VIX 3 MESES (Completa)", price: 180, details: "Tarda en entregarse" },
+            { id: 51, category: "completas_tardan", emoji: "🪄", name: "VIX 6 MESES (Completa)", price: 240, details: "Tarda en entregarse" },
+            { id: 52, category: "completas_tardan", emoji: "🪄", name: "VIX ANUAL (Completa)", price: 360, details: "Tarda en entregarse" },
+            { id: 53, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL 3 MESES (Completa)", price: 195, details: "Tarda en entregarse" },
+            { id: 54, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL 6 MESES (Completa)", price: 270, details: "Tarda en entregarse" },
+            { id: 55, category: "completas_tardan", emoji: "🪄", name: "CRUNCHYROLL ANUAL (Completa)", price: 420, details: "Tarda en entregarse" },
+            { id: 56, category: "completas_tardan", emoji: "🪄", name: "TIDAL FAM TUS DATOS", price: 80, details: "Tarda en entregarse" },
+            { id: 57, category: "completas_tardan", emoji: "🪄", name: "TIDAL FAM MIS DATOS", price: 95, details: "Tarda en entregarse" },
+            { id: 58, category: "completas_tardan", emoji: "🪄", name: "CANVA FAM TUS DATOS", price: 155, details: "Tarda en entregarse" },
+            { id: 59, category: "completas_tardan", emoji: "🪄", name: "CANVA FAM MIS DATOS", price: 110, details: "Tarda en entregarse" },
+            { id: 60, category: "completas_tardan", emoji: "🪄", name: "YOUTUBE FAM A TUS DATOS", price: 145, details: "Tarda en entregarse" },
+            { id: 61, category: "completas_tardan", emoji: "🪄", name: "YOUTUBE FAM MIS DATOS", price: 110, details: "Tarda en entregarse" },
+
+            { id: 62, category: "completas_general", emoji: "🟥", name: "Netflix (5 disp)", price: 305, details: "" },
+            { id: 63, category: "completas_general", emoji: "🟧", name: "Disney + Star (7 disp)", price: 205, details: "" },
+            { id: 64, category: "completas_general", emoji: "🟦", name: "HBO (5 disp)", price: 130, details: "" },
+            { id: 65, category: "completas_general", emoji: "⬛", name: "Viki Rakuten (4 disp)", price: 80, details: "" },
+            { id: 66, category: "completas_general", emoji: "🟩", name: "Porhub (3 disp)", price: 110, details: "" },
+            { id: 67, category: "completas_general", emoji: "🟪", name: "Prime (6 disp)", price: 115, details: "" },
+            { id: 68, category: "completas_general", emoji: "⬛", name: "Vix (5 disp)", price: 90, details: "" },
+            { id: 69, category: "completas_general", emoji: "⬜️", name: "IPTV SMARTERS (3 disp x 1 mes)", price: 95, details: "" },
+            { id: 70, category: "completas_general", emoji: "🟥", name: "IPTV SMARTERS (3 meses)", price: 190, details: "3 dispositivos" },
+            { id: 71, category: "completas_general", emoji: "🟥", name: "IPTV SMARTERS (6 meses)", price: 250, details: "3 dispositivos" },
+            { id: 72, category: "completas_general", emoji: "🟨", name: "Paramount (6 disp)", price: 100, details: "" },
+            { id: 73, category: "completas_general", emoji: "🟧", name: "Plex (3 disp)", price: 95, details: "" },
+            { id: 74, category: "completas_general", emoji: "🟦", name: "Flujo tv (3 disp)", price: 175, details: "" },
+            { id: 75, category: "completas_general", emoji: "🫫", name: "Mubi (Completa)", price: 95, details: "" },
+            { id: 76, category: "completas_general", emoji: "🟪", name: "Crunchyroll (5 disp)", price: 90, details: "" }
         ];
 
         const rawMovieData = [
@@ -259,7 +270,6 @@
         ];
 
         const rawBookData = [
-            // Placeholder - Reemplaza esto con tu lista real de libros
             "Cien años de soledad - Gabriel García Márquez",
             "El principito - Antoine de Saint-Exupéry",
             "1984 - George Orwell",
